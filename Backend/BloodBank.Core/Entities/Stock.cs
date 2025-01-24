@@ -2,6 +2,7 @@ namespace BloodBank.Core.Entities;
 
 public class Stock : BaseEntity
 {
+    protected Stock() { }
     public Stock(string bloodType, string rhFactor, int quantityMl) : base()
     {
         BloodType = bloodType;

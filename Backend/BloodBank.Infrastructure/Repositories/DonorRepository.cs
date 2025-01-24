@@ -16,19 +16,19 @@ public class DonorRepository : IDonorRepository
 
     public async Task<List<Donor>> GetAll()
     {
-        var donors = await _context.Donors.ToListAsync();
+        var donors = await _context.Donors.Where(x=> !x.IsDeleted).ToListAsync();
         return donors;
     }
 
     public async Task<Donor> GetById(Guid id)
     {
-        var donor = await _context.Donors.SingleOrDefaultAsync(x => x.Id == id);
+        var donor = await _context.Donors.SingleOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
         return donor;
     }
 
     public async Task<bool> Exists(string email)
     {
-        var exists = await _context.Donors.AnyAsync(x => x.Email == email);
+        var exists = await _context.Donors.AnyAsync(x => x.Email == email && !x.IsDeleted);
         return exists;
     }
 

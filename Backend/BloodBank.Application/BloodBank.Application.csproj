@@ -7,9 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\" />
-      <Folder Include="Models\" />
-      <Folder Include="Queries\" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BloodBank.Core\BloodBank.Core.csproj" />
     </ItemGroup>
 
 </Project>

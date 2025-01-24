@@ -27,6 +27,16 @@ public class Donor : BaseEntity
     public Address Address { get; private set; }
     
     public List<Donation> Donations { get; private set; }
+    
+    public int CalculateAge(DateTime birthDate)
+    {
+        int age = DateTime.Now.Year - birthDate.Year;
+        if (birthDate.Date > DateTime.Now.AddYears(-age))
+        {
+            age--;
+        }
+        return age;
+    }
 
     public void Update(string fullName,string email,DateTime birthDay, GenderEnum gender, double weight, string bloodType, string rhFactor, Address address)
     {
