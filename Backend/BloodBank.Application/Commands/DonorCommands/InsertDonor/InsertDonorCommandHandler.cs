@@ -17,6 +17,9 @@ public class InsertDonorCommandHandler : IRequestHandler<InsertDonorCommand, Res
     {
         try
         {
+            var existsDonor = await _repository.Exists(request.Email);
+            if (existsDonor) return ResultViewModel<Guid>.Error("Donor with this e-mail already exists");
+            
             var donor = request.ToEntity();
             await _repository.Add(donor);
             return ResultViewModel<Guid>.Success(donor.Id);

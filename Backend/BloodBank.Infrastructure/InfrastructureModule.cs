@@ -13,6 +13,7 @@ public static class InfrastructureModule
     {
         services
             .AddData(configuration)
+            .AddUnitOfWork()
             .AddRepositories();
         return services;
     }
@@ -29,6 +30,12 @@ public static class InfrastructureModule
         services.AddScoped<IDonorRepository, DonorRepository>();
         services.AddScoped<IDonationRepository, DonationRepository>();
         services.AddScoped<IStockRepository, StockRepository>();
+        return services;
+    }
+
+    private static IServiceCollection AddUnitOfWork(this IServiceCollection services)
+    {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         return services;
     }
 }

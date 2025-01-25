@@ -16,9 +16,8 @@ public class Donation : BaseEntity
     
     public Donor Donor { get; private set; }
 
-    public void Update(Guid donorId, DateTime donationDate, int quantityMl)
+    public void Update(DateTime donationDate, int quantityMl)
     {
-        DonorId = donorId;
         DonationDate = donationDate;
         QuantityMl = quantityMl;
     }

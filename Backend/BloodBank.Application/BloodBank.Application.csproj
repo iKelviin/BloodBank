@@ -14,4 +14,8 @@
       <ProjectReference Include="..\BloodBank.Core\BloodBank.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Queries\DonationQueries\GetById\" />
+    </ItemGroup>
+
 </Project>

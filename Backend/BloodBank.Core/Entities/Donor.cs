@@ -49,4 +49,12 @@ public class Donor : BaseEntity
         RhFactor = rhFactor;
         Address = address;
     }
+
+    public bool CanDonate()
+    {
+        var age = CalculateAge(BirthDay);
+        if(age < 16 && Weight < 50) return false;
+        
+        return true;
+    }
 }
