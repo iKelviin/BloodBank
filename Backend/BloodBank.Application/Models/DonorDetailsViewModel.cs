@@ -38,6 +38,6 @@ public class DonorDetailsViewModel
 
     public static DonorDetailsViewModel FromEntity(Donor donor)
     {
-        return new(donor.Id, donor.FullName, donor.Email, donor.BirthDay,donor.CalculateAge(donor.BirthDay), Enum.GetName(donor.Gender)!, donor.Weight, $"{donor.BloodType}{donor.RhFactor}", donor.Address.Street, donor.Address.City, donor.Address.State, donor.Address.ZipCode);
+        return new(donor.Id, donor.FullName, donor.Email, donor.BirthDay,donor.CalculateAge(donor.BirthDay), Enum.GetName(donor.Gender)!, donor.Weight, $"{donor.BloodType.ToString()}{donor.RhFactor.ToString()}", donor.Address.Street, donor.Address.City, donor.Address.State, donor.Address.ZipCode);
     }
 }

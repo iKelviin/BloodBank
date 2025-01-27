@@ -1,5 +1,6 @@
 using BloodBank.Application.Models;
 using BloodBank.Core.Entities;
+using BloodBank.Core.Enums;
 using BloodBank.Core.Interfaces;
 using MediatR;
 
@@ -18,15 +19,30 @@ public class InsertDonationCommandHandler : IRequestHandler<InsertDonationComman
     {
         try
         {
+            
             // Verifica o doador
             var donor = await _unitOfWork.Donors.GetById(request.DonorId);
             if (donor is null) return ResultViewModel<Guid>.Error("Donor not found");
 
             if (!donor.CanDonate()) return ResultViewModel<Guid>.Error("Donor can't donate");
+            
+            // Verifica ultima doação feita
+            var lastDonationByDonor = await _unitOfWork.Donations.GetLastByDonorId(request.DonorId);
+            if (lastDonationByDonor != null)
+            {
+                var daysSinceLastDonation = (DateTime.Now - lastDonationByDonor.DonationDate).Days;
 
-            if (!(request.QuantityMl >= 420 && request.QuantityMl <= 470))
-                return ResultViewModel<Guid>.Error("Quantity blood must be between 420Ml and 470Ml");
-
+                // Homens só podem doar a cada 60 dias.
+                if (donor.Gender == GenderEnum.Male && daysSinceLastDonation < 60)
+                {
+                    return ResultViewModel<Guid>.Error("Men can only donate blood every 60 days.");
+                }
+                // Mulheres só podem doar a cada 90 dias.
+                else if (donor.Gender == GenderEnum.Female && daysSinceLastDonation < 90)
+                {
+                    return ResultViewModel<Guid>.Error("Women can only donate blood every 90 days.");
+                }
+            }
             // Inicia Transação com UnitOfWork
             await _unitOfWork.BeginTransactionAsync();
             
@@ -36,10 +52,10 @@ public class InsertDonationCommandHandler : IRequestHandler<InsertDonationComman
             await _unitOfWork.CompleteAsync();
             
             // Adiciona sangue ao estoque
-            var stock = await _unitOfWork.Stocks.GetByBloodType(donor.BloodType, donor.RhFactor);
+            var stock = await _unitOfWork.Stocks.GetByBloodType(Enum.Parse<BloodTypeEnum>(donor.BloodType),Enum.Parse<RhFactorEnum>( donor.RhFactor));
             if (stock is null)
             {
-                await _unitOfWork.Stocks.Add(new Stock(donor.BloodType, donor.RhFactor,request.QuantityMl));
+                await _unitOfWork.Stocks.Add(new Stock(Enum.Parse<BloodTypeEnum>(donor.BloodType),Enum.Parse<RhFactorEnum>( donor.RhFactor),request.QuantityMl));
             }
             else
             {

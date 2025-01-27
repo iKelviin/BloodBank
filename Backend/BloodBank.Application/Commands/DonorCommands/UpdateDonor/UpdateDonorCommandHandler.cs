@@ -27,8 +27,8 @@ public class UpdateDonorCommandHandler : IRequestHandler<UpdateDonorCommand, Res
                 request.BirthDay,
                 request.Gender,
                 request.Weight,
-                request.BloodType,
-                request.RhFactor,
+                request.BloodType.ToString(),
+                request.RhFactor.ToString(),
                 new Address(
                     request.Street,
                     request.City,

@@ -6,7 +6,7 @@ namespace BloodBank.Application.Commands.DonorCommands.UpdateDonor;
 
 public class UpdateDonorCommand : IRequest<ResultViewModel>
 {
-    public UpdateDonorCommand(Guid id, string fullName, string email, DateTime birthDay, GenderEnum gender, double weight, string bloodType, string rhFactor, string street, string city, string state, string zipCode)
+    public UpdateDonorCommand(Guid id, string fullName, string email, DateTime birthDay, GenderEnum gender, double weight, BloodTypeEnum bloodType, RhFactorEnum rhFactor, string street, string city, string state, string zipCode)
     {
         Id = id;
         FullName = fullName;
@@ -28,8 +28,8 @@ public class UpdateDonorCommand : IRequest<ResultViewModel>
     public DateTime BirthDay { get; set; }
     public GenderEnum Gender { get; set; }
     public Double Weight { get; set; }
-    public string BloodType { get; set; }
-    public string RhFactor { get; set; }
+    public BloodTypeEnum BloodType { get; set; }
+    public RhFactorEnum RhFactor { get; set; }
     public string Street { get; set; }
     public string City { get; set; }
     public string State { get; set; }

@@ -31,6 +31,16 @@ public class DonationRepository : IDonationRepository
             .ToListAsync();
         return donations;
     }
+    
+    public async Task<Donation> GetLastByDonorId(Guid donorId)
+    {
+        var donation = await _context.Donations
+            .Include(x => x.Donor)
+            .Where(x => x.DonorId == donorId && !x.IsDeleted)
+            .OrderByDescending(x => x.DonationDate)
+            .FirstOrDefaultAsync();
+        return donation;
+    }
 
     public async Task<Donation> GetById(Guid id)
     {

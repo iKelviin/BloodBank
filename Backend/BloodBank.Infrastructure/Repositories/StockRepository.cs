@@ -1,4 +1,5 @@
 using BloodBank.Core.Entities;
+using BloodBank.Core.Enums;
 using BloodBank.Core.Interfaces;
 using BloodBank.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ public class StockRepository : IStockRepository
         return stock;
     }
     
-    public async Task<Stock> GetByBloodType(string bloodType, string rhFactor)
+    public async Task<Stock> GetByBloodType(BloodTypeEnum bloodType, RhFactorEnum rhFactor)
     {
         var stock = await _context.Stocks.SingleOrDefaultAsync(x => x.BloodType == bloodType && x.RhFactor == rhFactor);
         return stock;

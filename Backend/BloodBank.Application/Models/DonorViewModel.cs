@@ -23,7 +23,7 @@ public class DonorViewModel
 
     public static DonorViewModel FromEntity(Donor donor)
     {
-        return new(donor.Id, donor.FullName, donor.Email, donor.CalculateAge(donor.BirthDay), Enum.GetName(donor.Gender)!, $"{donor.BloodType}{donor.RhFactor}");
+        return new(donor.Id, donor.FullName, donor.Email, donor.CalculateAge(donor.BirthDay), Enum.GetName(donor.Gender)!, $"{donor.BloodType.ToString()}{donor.RhFactor.ToString()}");
     }
 
 }

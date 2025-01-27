@@ -23,5 +23,5 @@ public class DonationViewModel
 
     public static DonationViewModel FromEntity(Donation donation) => new (donation.Id, donation.DonorId,
         donation.Donor.FullName, donation.DonationDate, donation.QuantityMl,
-        $"{donation.Donor.BloodType}{donation.Donor.RhFactor}");
+        $"{donation.Donor.BloodType.ToString()}{donation.Donor.RhFactor.ToString()}");
 }

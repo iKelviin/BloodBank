@@ -1,5 +1,6 @@
 using BloodBank.Application.Commands.DonationCommands.InsertDonation;
 using BloodBank.Application.Queries.DonationQueries.GetAll;
+using BloodBank.Application.Queries.DonationQueries.GetByDonorId;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +28,7 @@ public class DonationController : ControllerBase
     [HttpGet("by-donor/{id}")]
     public async Task<IActionResult> GetByDonorId(Guid id)
     {
-        var result = await _mediator.Send(new GetAllDonationsQuery());
+        var result = await _mediator.Send(new GetDonationsByDonorIdQuery(id));
         if(!result.IsSuccess) return BadRequest(result.Message); 
         return Ok(result.Data);
     }
