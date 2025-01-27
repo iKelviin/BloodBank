@@ -13,13 +13,12 @@ Bem-vindo ao BloodBank, um sistema de gerenciamento de banco de sangue desenvolv
 
 ## Tecnologias Utilizadas
 
-**.NET 9**
-**ASP.NET Core**  
-**Blazor WebAssembly**: Interface moderna para consumir a API.  
-**CQRS (Command Query Responsibility Segregation)**: Separação de comandos (escrita) e consultas (leitura).  
-**Fluent Validation**: Validação fluente para entradas de dados (usuários e livros).  
-**Entity Framework Core**: ORM para comunicação com o banco de dados.  
-**Unit Of Work**: 
+- **.NET 9**
+- **ASP.NET Core**  
+- **Blazor WebAssembly**: Interface moderna para consumir a API.  
+- **CQRS (Command Query Responsibility Segregation)**: Separação de comandos (escrita) e consultas (leitura).  
+- **Fluent Validation**: Validação fluente para entradas de dados (usuários e livros).  
+- **Entity Framework Core**: ORM para comunicação com o banco de dados.  
 
 ## Regras de Negócio
 - Não permitir o cadastro de doadores com o mesmo e-mail.
