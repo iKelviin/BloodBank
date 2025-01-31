@@ -7,6 +7,21 @@ namespace BloodBank.Application.Commands.DonorCommands.InsertDonor;
 
 public class InsertDonorCommand : IRequest<ResultViewModel<Guid>>
 {
+    public InsertDonorCommand(string fullName, string email, DateTime birthDay, string gender, double weight, string bloodType, string rhFactor, string street, string city, string state, string zipCode)
+    {
+        FullName = fullName;
+        Email = email;
+        BirthDay = birthDay;
+        Gender = gender;
+        Weight = weight;
+        BloodType = bloodType;
+        RhFactor = rhFactor;
+        Street = street;
+        City = city;
+        State = state;
+        ZipCode = zipCode;
+    }
+
     public string FullName { get; set; }
     public string Email { get; set; }
     public DateTime BirthDay { get; set; }
