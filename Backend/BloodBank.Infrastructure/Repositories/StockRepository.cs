@@ -29,7 +29,7 @@ public class StockRepository : IStockRepository
         return stock;
     }
     
-    public async Task<Stock> GetByBloodType(BloodTypeEnum bloodType, RhFactorEnum rhFactor)
+    public async Task<Stock> GetByBloodType(string bloodType, string rhFactor)
     {
         var stock = await _context.Stocks.SingleOrDefaultAsync(x => x.BloodType == bloodType && x.RhFactor == rhFactor);
         return stock;

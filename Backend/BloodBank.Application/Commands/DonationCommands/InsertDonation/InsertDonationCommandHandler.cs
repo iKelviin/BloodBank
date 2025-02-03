@@ -52,10 +52,10 @@ public class InsertDonationCommandHandler : IRequestHandler<InsertDonationComman
             await _unitOfWork.CompleteAsync();
             
             // Adiciona sangue ao estoque
-            var stock = await _unitOfWork.Stocks.GetByBloodType(Enum.Parse<BloodTypeEnum>(donor.BloodType),Enum.Parse<RhFactorEnum>( donor.RhFactor));
+            var stock = await _unitOfWork.Stocks.GetByBloodType(donor.BloodType, donor.RhFactor);
             if (stock is null)
             {
-                await _unitOfWork.Stocks.Add(new Stock(Enum.Parse<BloodTypeEnum>(donor.BloodType),Enum.Parse<RhFactorEnum>( donor.RhFactor),request.QuantityMl));
+                await _unitOfWork.Stocks.Add(new Stock(donor.BloodType,donor.RhFactor,request.QuantityMl));
             }
             else
             {

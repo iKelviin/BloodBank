@@ -145,7 +145,7 @@ public class InsertDonationHandlerTests
         
         _donorRepository.GetById(donorId).Returns(donor);
         _donationRepository.GetLastByDonorId(donorId).Returns((Donation)null);
-        _stockRepository.GetByBloodType(Arg.Any<BloodTypeEnum>(), Arg.Any<RhFactorEnum>()).Returns((Stock)null);
+        _stockRepository.GetByBloodType(Arg.Any<string>(), Arg.Any<string>()).Returns((Stock)null);
         
         // Act
         var result = await _handler.Handle(command, CancellationToken.None);
