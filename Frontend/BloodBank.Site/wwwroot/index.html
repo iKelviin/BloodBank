@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<<html lang="pt-BR" data-layout="horizontal" data-topbar="light" data-sidebar="light" data-sidebar-size="lg"
+       data-sidebar-image="none" data-preloader="disable" data-theme="default" data-theme-colors="default">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BloodBank.Site</title>
+    <base href="/home" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link href="BloodBank.Site.styles.css" rel="stylesheet" />
+
+    <!-- Sweet Alert css-->
+    <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Swiper slider CSS -->
+    <link href="assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Velzon CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Script de Layout -->
+    <script src="assets/js/layout.js"></script>
+
+    <!-- Script do jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Velzon e Bootstrap JS -->
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/node-waves/waves.min.js"></script>
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+    <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="assets/js/plugins.js"></script>
+
+    <!-- Não remover -->
+    <script>
+        function ShowModal(modalId) {
+            $('#' + modalId).modal('show');
+        }
+        function CloseModal(modalId) {
+            $('#' + modalId).modal('hide');
+        }
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="assets/js/cookies.js"></script>
+
+    <!-- Sweet alert init js-->
+    <script src="assets/js/pages/sweetalerts.init.js"></script>
+
+    <!-- Sweet Alerts js -->
+    <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- Apexcharts - Não remover -->
+    <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Vector Map - Não remover -->
+    <script src="assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+    <script src="assets/libs/jsvectormap/maps/world-merc.js"></script>
+
+    <!-- Swiper Slider - Não remover -->
+    <script src="assets/libs/swiper/swiper-bundle.min.js"></script>
+
+    <!-- swiper.init js -->
+    <script src="assets/js/pages/swiper.init.js"></script>
+
+    <!-- Notifications init -->
+    <script src="assets/js/pages/notifications.init.js"></script>
+
+    <!-- prismjs plugin -->
+    <script src="assets/libs/prismjs/prism.js"></script>
+
+    <!-- toastify-js plugin -->
+    <script src="assets/libs/toastify-js/src/toastify.js"></script>
+    <script src="assets/js/pages/password-addon.init.js"></script>
+</body>
+
+</html>
