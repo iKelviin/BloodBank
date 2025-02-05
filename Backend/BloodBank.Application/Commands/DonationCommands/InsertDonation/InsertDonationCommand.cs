@@ -6,16 +6,19 @@ namespace BloodBank.Application.Commands.DonationCommands.InsertDonation;
 
 public class InsertDonationCommand : IRequest<ResultViewModel<Guid>>
 {
-    public InsertDonationCommand(Guid donorId, int quantityMl)
+    public InsertDonationCommand(Guid donorId, Guid healthPostId, DateTime donationDate, int quantityMl)
     {
         DonorId = donorId;
-        DonationDate = DateTime.Now;
+        HealthPostId = healthPostId;
+        DonationDate = donationDate;
         QuantityMl = quantityMl;
     }
 
-    public Guid DonorId { get;  set; }
-    public DateTime DonationDate { get; private set; }
-    public int QuantityMl { get;  set; }
-    
-    public Donation ToEntity() => new(DonorId, DonationDate, QuantityMl);
+
+    public Guid DonorId { get; set; }
+    public Guid HealthPostId { get; set; }
+    public DateTime DonationDate { get; set; }
+    public int QuantityMl { get; set; }
+
+    public Donation ToEntity() => new(DonorId, HealthPostId, DonationDate, QuantityMl);
 }

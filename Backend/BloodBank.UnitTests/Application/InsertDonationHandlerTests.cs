@@ -38,7 +38,7 @@ public class InsertDonationHandlerTests
     {
         // Arrange
         var donorId = Guid.NewGuid();
-        var command = new InsertDonationCommand(donorId,450);
+        var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now,450);
         
         _donorRepository.GetById(donorId).Returns((Donor)null);
         
@@ -58,7 +58,7 @@ public class InsertDonationHandlerTests
         var donor = new Donor("Lucas Silva", "lucas@mail.com", new DateTime(2020, 6, 3), GenderEnum.Male, 40, "A",
             "Positive", new Address("Street", "City", "State", "12345-678"));
 
-        var command = new InsertDonationCommand(donorId, 420);
+        var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now, 420);
         _donorRepository.GetById(donorId).Returns(donor);
         
         // Act
@@ -78,7 +78,7 @@ public class InsertDonationHandlerTests
         var donor = new Donor("Lucas Silva", "lucas@mail.com", new DateTime(2000, 6, 3), GenderEnum.Male, 70, "A",
             "Positive", new Address("Street", "City", "State", "12345-678"));
         
-        var command = new InsertDonationCommand(donorId, 450);
+        var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now, 450);
         _donorRepository.GetById(donorId).Returns(donor);
         
         // Act
@@ -97,8 +97,8 @@ public class InsertDonationHandlerTests
         var donor = new Donor("Lucas Silva", "lucas@mail.com", new DateTime(2000, 6, 3), GenderEnum.Male, 70, "A",
             "Positive", new Address("Street", "City", "State", "12345-678"));
 
-        var lastDonation = new Donation(donorId, DateTime.Now.AddDays(-50), 450);
-        var command = new InsertDonationCommand(donorId, 450);
+        var lastDonation = new Donation(donorId,Guid.NewGuid(), DateTime.Now.AddDays(-50), 450);
+        var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now, 450);
         
         _donorRepository.GetById(donorId).Returns(donor);
         _donationRepository.GetLastByDonorId(donorId).Returns(lastDonation);
@@ -119,8 +119,8 @@ public class InsertDonationHandlerTests
         var donor = new Donor("Lucia Silva", "lucia@mail.com", new DateTime(2000, 6, 3), GenderEnum.Female, 70, "B",
             "Negative", new Address("Street", "City", "State", "12345-678"));
 
-        var lastDonation = new Donation(donorId, DateTime.Now.AddDays(-80), 450);
-        var command = new InsertDonationCommand(donorId, 450);
+        var lastDonation = new Donation(donorId,Guid.NewGuid(), DateTime.Now.AddDays(-80), 450);
+        var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now, 450);
         
         _donorRepository.GetById(donorId).Returns(donor);
         _donationRepository.GetLastByDonorId(donorId).Returns(lastDonation);
@@ -141,7 +141,7 @@ public class InsertDonationHandlerTests
         var donor = new Donor("Lucas Silva", "lucas@mail.com", new DateTime(2000, 6, 3), GenderEnum.Male, 70, "A",
             "Positive", new Address("Street", "City", "State", "12345-678"));
         
-        var command = new InsertDonationCommand(donorId, 450);
+        var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now, 450);
         
         _donorRepository.GetById(donorId).Returns(donor);
         _donationRepository.GetLastByDonorId(donorId).Returns((Donation)null);
@@ -161,7 +161,7 @@ public class InsertDonationHandlerTests
     public void Validate_WhenQuantityMlIsLessThan420_ShouldHaveValidationError()
     {
         // Arrange
-        var command = new InsertDonationCommand(Guid.NewGuid(), 400);
+        var command = new InsertDonationCommand(Guid.NewGuid(),Guid.NewGuid(), DateTime.Now, 400);
 
         // Act
         var result = _validator.TestValidate(command);
@@ -175,7 +175,7 @@ public class InsertDonationHandlerTests
     public void Validate_WhenQuantityMlIsGreaterThan470_ShouldHaveValidationError()
     {
         // Arrange
-        var command = new InsertDonationCommand(Guid.NewGuid(), 500);
+        var command = new InsertDonationCommand(Guid.NewGuid(),Guid.NewGuid(), DateTime.Now, 500);
 
         // Act
         var result = _validator.TestValidate(command);

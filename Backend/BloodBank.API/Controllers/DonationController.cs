@@ -1,4 +1,5 @@
 using BloodBank.Application.Commands.DonationCommands.InsertDonation;
+using BloodBank.Application.Commands.DonationCommands.SetDonationCollected;
 using BloodBank.Application.Queries.DonationQueries.GetAll;
 using BloodBank.Application.Queries.DonationQueries.GetByDonorId;
 using MediatR;
@@ -39,5 +40,13 @@ public class DonationController : ControllerBase
         var result = await _mediator.Send(command);
         if(!result.IsSuccess) return BadRequest(result.Message);
         return Ok(result.Data);
+    }
+
+    [HttpPut("{id}/collect")]
+    public async Task<IActionResult> Collect(Guid id)
+    {
+        var result = await _mediator.Send(new SetDonationCollectedCommand(id));
+        if(!result.IsSuccess) return BadRequest(result.Message);
+        return Ok();
     }
 }

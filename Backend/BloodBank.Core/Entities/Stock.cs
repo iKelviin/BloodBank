@@ -15,6 +15,7 @@ public class Stock : BaseEntity
     public string BloodType { get; private set; }
     public string RhFactor { get; private set; }
     public int QuantityML { get; private set; }
+    
 
     public void InsertBlood(int quantityMl)
     {

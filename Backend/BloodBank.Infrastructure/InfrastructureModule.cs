@@ -30,6 +30,7 @@ public static class InfrastructureModule
         services.AddScoped<IDonorRepository, DonorRepository>();
         services.AddScoped<IDonationRepository, DonationRepository>();
         services.AddScoped<IStockRepository, StockRepository>();
+        services.AddScoped<IHealthPostRepository, HealthPostRepository>();
         return services;
     }
 
