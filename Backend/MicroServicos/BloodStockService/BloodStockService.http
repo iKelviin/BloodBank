@@ -1,0 +1,6 @@
+@BloodStockService_HostAddress = http://localhost:5052
+
+GET {{BloodStockService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

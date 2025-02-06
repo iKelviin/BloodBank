@@ -16,6 +16,34 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{4C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBank.Site", "Frontend\BloodBank.Site\BloodBank.Site.csproj", "{C663FD79-589C-45ED-8552-CAA3EE2D2445}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServiços", "MicroServiços", "{D6D33496-0C86-4B97-9295-F4E13A6A175A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodStockService", "MicroServicos\BloodStockService\BloodStockService.csproj", "{EBB7396D-8369-4AC5-83C5-F5D4EF9B163A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BloodStock", "BloodStock", "{05EFEF50-88C2-4345-9788-F84D8F178E56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBank.Services.BloodStock", "MicroServicos\BloodStock\BloodBank.Services.BloodStock\BloodBank.Services.BloodStock.csproj", "{F8ABA13D-39E7-4B6B-A480-3B88D7307338}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBank.Services.BloodStock.Core", "MicroServicos\BloodStock\BloodBank.Services.BloodStock.Core\BloodBank.Services.BloodStock.Core.csproj", "{D989365C-7EA1-42F1-A058-451864C9F9D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBank.Services.BloodStock.Infrastructure", "MicroServicos\BloodStock\BloodBank.Services.BloodStock.Infrastructure\BloodBank.Services.BloodStock.Infrastructure.csproj", "{3A32ED0A-EEF2-4DC1-AABA-0C03EEDF533D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBank.Services.BloodStock.Application", "MicroServicos\BloodStock\BloodBank.Services.BloodStock.Application\BloodBank.Services.BloodStock.Application.csproj", "{863E83CB-CE7F-496B-ACB6-4825E8A1C2E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BloodAnalysis", "BloodAnalysis", "{85CF8125-ACD1-4CEE-9CAB-FF38FFB3E1D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBank.Services.BloodAnalysis", "MicroServicos\BloodAnalysis\BloodBank.Services.BloodAnalysis\BloodBank.Services.BloodAnalysis.csproj", "{534C550C-4959-42FD-8395-528D56A8FC51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBank.Services.BloodAnalysis.Core", "MicroServicos\BloodAnalysis\BloodBank.Services.BloodAnalysis.Core\BloodBank.Services.BloodAnalysis.Core.csproj", "{4A07CFD3-64EF-496A-ACD0-9A6FEB12E0A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBank.Services.BloodAnalysis.Application", "MicroServicos\BloodAnalysis\BloodBank.Services.BloodAnalysis.Application\BloodBank.Services.BloodAnalysis.Application.csproj", "{A526C1B9-7C37-4240-8DD1-841A9C279A3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBank.Services.BloodAnalysis.Infrastructure", "MicroServicos\BloodAnalysis\BloodBank.Services.BloodAnalysis.Infrastructure\BloodBank.Services.BloodAnalysis.Infrastructure.csproj", "{0B84C9BA-05FF-498A-9FEA-396379AF566E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications", "Notifications", "{55B110B0-FF96-4D43-9A62-8C26582B24CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBank.Services.Notifications", "MicroServicos\Notifications\BloodBank.Services.Notifications\BloodBank.Services.Notifications.csproj", "{C5B76164-248A-4825-A0B8-66F771E4E8CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +74,46 @@ Global
 		{C663FD79-589C-45ED-8552-CAA3EE2D2445}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C663FD79-589C-45ED-8552-CAA3EE2D2445}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C663FD79-589C-45ED-8552-CAA3EE2D2445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBB7396D-8369-4AC5-83C5-F5D4EF9B163A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBB7396D-8369-4AC5-83C5-F5D4EF9B163A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBB7396D-8369-4AC5-83C5-F5D4EF9B163A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBB7396D-8369-4AC5-83C5-F5D4EF9B163A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8ABA13D-39E7-4B6B-A480-3B88D7307338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8ABA13D-39E7-4B6B-A480-3B88D7307338}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8ABA13D-39E7-4B6B-A480-3B88D7307338}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8ABA13D-39E7-4B6B-A480-3B88D7307338}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D989365C-7EA1-42F1-A058-451864C9F9D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D989365C-7EA1-42F1-A058-451864C9F9D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D989365C-7EA1-42F1-A058-451864C9F9D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D989365C-7EA1-42F1-A058-451864C9F9D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A32ED0A-EEF2-4DC1-AABA-0C03EEDF533D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A32ED0A-EEF2-4DC1-AABA-0C03EEDF533D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A32ED0A-EEF2-4DC1-AABA-0C03EEDF533D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A32ED0A-EEF2-4DC1-AABA-0C03EEDF533D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{863E83CB-CE7F-496B-ACB6-4825E8A1C2E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{863E83CB-CE7F-496B-ACB6-4825E8A1C2E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{863E83CB-CE7F-496B-ACB6-4825E8A1C2E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{863E83CB-CE7F-496B-ACB6-4825E8A1C2E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{534C550C-4959-42FD-8395-528D56A8FC51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{534C550C-4959-42FD-8395-528D56A8FC51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{534C550C-4959-42FD-8395-528D56A8FC51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{534C550C-4959-42FD-8395-528D56A8FC51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A07CFD3-64EF-496A-ACD0-9A6FEB12E0A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A07CFD3-64EF-496A-ACD0-9A6FEB12E0A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A07CFD3-64EF-496A-ACD0-9A6FEB12E0A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A07CFD3-64EF-496A-ACD0-9A6FEB12E0A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A526C1B9-7C37-4240-8DD1-841A9C279A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A526C1B9-7C37-4240-8DD1-841A9C279A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A526C1B9-7C37-4240-8DD1-841A9C279A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A526C1B9-7C37-4240-8DD1-841A9C279A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B84C9BA-05FF-498A-9FEA-396379AF566E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B84C9BA-05FF-498A-9FEA-396379AF566E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B84C9BA-05FF-498A-9FEA-396379AF566E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B84C9BA-05FF-498A-9FEA-396379AF566E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5B76164-248A-4825-A0B8-66F771E4E8CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5B76164-248A-4825-A0B8-66F771E4E8CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5B76164-248A-4825-A0B8-66F771E4E8CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5B76164-248A-4825-A0B8-66F771E4E8CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3D67DC9C-1811-46E8-85F8-5C78EA19FACC} = {E2B11BDF-D328-4956-92BC-BFC43C95A5CB}
@@ -54,5 +122,18 @@ Global
 		{6C0B1BB8-D234-4718-A2AF-E0834CEA0349} = {E2B11BDF-D328-4956-92BC-BFC43C95A5CB}
 		{F5AECF6C-4711-4BB5-9413-FD7A859C1B82} = {E2B11BDF-D328-4956-92BC-BFC43C95A5CB}
 		{C663FD79-589C-45ED-8552-CAA3EE2D2445} = {4CAD6524-739C-4506-8C3C-7DC3FF6ECAC3}
+		{EBB7396D-8369-4AC5-83C5-F5D4EF9B163A} = {D6D33496-0C86-4B97-9295-F4E13A6A175A}
+		{05EFEF50-88C2-4345-9788-F84D8F178E56} = {D6D33496-0C86-4B97-9295-F4E13A6A175A}
+		{F8ABA13D-39E7-4B6B-A480-3B88D7307338} = {05EFEF50-88C2-4345-9788-F84D8F178E56}
+		{D989365C-7EA1-42F1-A058-451864C9F9D4} = {05EFEF50-88C2-4345-9788-F84D8F178E56}
+		{3A32ED0A-EEF2-4DC1-AABA-0C03EEDF533D} = {05EFEF50-88C2-4345-9788-F84D8F178E56}
+		{863E83CB-CE7F-496B-ACB6-4825E8A1C2E9} = {05EFEF50-88C2-4345-9788-F84D8F178E56}
+		{85CF8125-ACD1-4CEE-9CAB-FF38FFB3E1D8} = {D6D33496-0C86-4B97-9295-F4E13A6A175A}
+		{534C550C-4959-42FD-8395-528D56A8FC51} = {85CF8125-ACD1-4CEE-9CAB-FF38FFB3E1D8}
+		{4A07CFD3-64EF-496A-ACD0-9A6FEB12E0A0} = {85CF8125-ACD1-4CEE-9CAB-FF38FFB3E1D8}
+		{A526C1B9-7C37-4240-8DD1-841A9C279A3B} = {85CF8125-ACD1-4CEE-9CAB-FF38FFB3E1D8}
+		{0B84C9BA-05FF-498A-9FEA-396379AF566E} = {85CF8125-ACD1-4CEE-9CAB-FF38FFB3E1D8}
+		{55B110B0-FF96-4D43-9A62-8C26582B24CD} = {D6D33496-0C86-4B97-9295-F4E13A6A175A}
+		{C5B76164-248A-4825-A0B8-66F771E4E8CA} = {55B110B0-FF96-4D43-9A62-8C26582B24CD}
 	EndGlobalSection
 EndGlobal
