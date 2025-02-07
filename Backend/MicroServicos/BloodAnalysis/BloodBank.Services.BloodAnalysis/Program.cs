@@ -1,3 +1,7 @@
+using BloodBank.Services.BloodAnalysis.Core;
+using BloodBank.Services.BloodAnalysis.Infrastructure;
+using BloodBank.Services.BloodAnalysis.Subscribers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,14 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+builder.Services.AddHostedService<BloodCollectedSubscriber>();
+var app = builder.Build();
 
 app.UseHttpsRedirection();
 

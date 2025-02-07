@@ -7,7 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MediatR" Version="12.4.1" />
+        <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BloodBank.Services.BloodAnalysis.Application\BloodBank.Services.BloodAnalysis.Application.csproj" />
+      <ProjectReference Include="..\BloodBank.Services.BloodAnalysis.Infrastructure\BloodBank.Services.BloodAnalysis.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

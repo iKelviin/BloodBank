@@ -51,7 +51,7 @@ public class InsertDonationCommandHandler : IRequestHandler<InsertDonationComman
             await _unitOfWork.Donations.Add(donation);
             await _unitOfWork.CompleteAsync();
             
-            // Adiciona sangue ao estoque
+            /* Agora o sangue é adicionado atráves de um Micro Serviço chamado BloodBank.Services.BloodStock.
             var stock = await _unitOfWork.Stocks.GetByBloodType(donor.BloodType.ToString(), donor.RhFactor.ToString());
             if (stock is null)
             {
@@ -62,7 +62,7 @@ public class InsertDonationCommandHandler : IRequestHandler<InsertDonationComman
                 stock.InsertBlood(request.QuantityMl);
                 await _unitOfWork.Stocks.Update(stock);
             }
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.CompleteAsync();*/
             
             // Commita as transações do UnitOfWork
             await _unitOfWork.CommitAsync();
