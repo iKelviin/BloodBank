@@ -4,6 +4,19 @@ using BloodBank.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Adicionar política de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -19,6 +32,7 @@ builder.Services
     .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
+app.UseCors("AllowAll");
 
 if (app.Environment.IsDevelopment())
 {

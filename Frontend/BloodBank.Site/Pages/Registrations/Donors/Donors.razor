@@ -1,0 +1,204 @@
+@page "/registration/donors"
+
+@inject  IDonorService DonorService
+@inject IJSRuntime JSRuntime
+
+
+
+<div class="card">
+    <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">Lista de Doadores Cadastrados</h4>
+        <div class="flex-shrink-0">
+            <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#donorModal"
+                    @onclick="(() => InitializeDonor())">Cadastrar
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row p-2">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Buscar..." @bind="SearchWord">
+                    <button class="btn btn-outline-success material-shadow-none" type="button" @onclick="Search">
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive mt-4 p-2">
+            <table class="table table-bordered table-centered align-middle table-nowrap mb-0">
+                <thead class="text-muted table-light">
+                <tr>
+                    <th scope="col">Doador</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Idade</th>
+                    <th scope="col">Sexo</th>
+                    <th scope="col">Sangue</th>
+                    <th scope="col">Ação</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                @if (isLoading)
+                {
+                    <tr>
+                        <td colspan="7">
+                            <div class="text-center">
+                                <div class="spinner-border text-primary avatar-sm" role="status">
+                                    <span class="visually-hidden">Carregando...</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                else if (donors.Count == 0)
+                {
+                    <tr>
+                        <td colspan="7">
+                            <div class="text-center">
+                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                           colors="primary:#405189,secondary:#0ab39c"
+                                           style="width:75px;height:75px"></lord-icon>
+                                <h5 class="mt-2">Desculpe! Nenhum registro encontrado!</h5>
+                                <p class="text-muted">Não encontramos nenhum doador cadastrado...</p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var donor in donors)
+                    {
+                        <tr class="">
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 me-2">
+                                        <img src="@GetAvatarUrl(donor.Gender)" alt="" class="avatar-xs rounded-circle">
+                                    </div>
+                                    <div class="flex-grow-1">@donor.FullName</div>
+                                </div>
+                            </td>
+                            <td>
+                                @donor.Email
+                            </td>
+                            <td>
+                                @donor.Age
+                            </td>
+                            <td>
+                                @if (@donor.Gender == "Male")
+                                {
+                                    <span class="text-success mb-0">
+                                        <i class="ri-men-line align-middle me-1"></i>Masculino
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger mb-0">
+                                        <i class="ri-women-line align-middle me-1"></i>Feminino
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                @donor.Blood
+                            </td>
+                            <td class="">
+                                <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#donorModal" @onclick="() => EditDonor(donor)"><i class="ri-pencil-fill"></i> Editar</button>
+                                <button type="button" class="btn btn-sm btn-danger me-1" @onclick="()=> DeleteDonor(donor.Id)"><i class="ri-eye-fill"></i><span >Excluir</span></button>
+                            </td>
+                        </tr>
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    private DonorViewModel? Donor { get; set; } = new DonorViewModel();
+    private List<DonorViewModel>? donors;
+    private string SearchWord = string.Empty;
+    private bool isLoading = true;
+    [Inject]
+    public SweetAlert sweetAlert { get; set; }
+
+    [Inject]
+    public Toastify toast { get; set; }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("carregarSweetAlert");
+            await LoadData();
+            StateHasChanged();
+        }
+    }
+
+    private async Task LoadData()
+    {
+        var result = await DonorService.GetAllDonors(SearchWord);
+        if (!result.IsSucces)
+        {
+            await toast.ShowError("Erro ao listar os doadores!");
+        }
+
+        donors = result.Data!;
+        isLoading = false;
+    }
+
+    private void InitializeDonor()
+    {
+        Donor = new DonorViewModel();
+    }
+
+    private async Task Search()
+    {
+        await LoadData();
+    }
+    
+    private void EditDonor(DonorViewModel donor)
+    {
+        Donor = donor;
+    }
+
+    private async Task DeleteDonor(Guid id)
+    {
+        var result = await sweetAlert.ShowConfirmDelete();
+        if (result.Value)
+        {
+            var response = await DonorService.Delete(id);
+            if (!response.IsSucces)
+            {
+                await toast.ShowError("Erro ao deletar o doador!");
+            }
+
+            await sweetAlert.ShowDeleteSucess();
+            await LoadData();
+            StateHasChanged();
+        }
+        
+    }
+    
+    private string GetAvatarUrl(string sex)
+    {
+        var random = new Random();
+        if (sex == "Male")
+        {
+            int[] maleAvatars = { 1, 3, 8, 9 };
+            int randomIndex = random.Next(0, maleAvatars.Length);
+            return $"assets/images/users/avatar-{maleAvatars[randomIndex]}.jpg";
+        }else if (sex == "Female")
+        {
+            int[] femaleAvatars = { 2, 4, 5, 6, 7, 10 };
+            int randomIndex = random.Next(0, femaleAvatars.Length);
+            return $"assets/images/users/avatar-{femaleAvatars[randomIndex]}.jpg";
+        }
+        else
+        {
+            return "assets/images/users/avatar-1.jpg";
+        }
+    }
+
+}
