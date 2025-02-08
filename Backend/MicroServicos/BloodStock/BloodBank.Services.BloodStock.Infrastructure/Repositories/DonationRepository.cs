@@ -1,6 +1,7 @@
+using BloodBank.Services.BloodStock.Core.Entities;
+using BloodBank.Services.BloodStock.Core.Enums;
+using BloodBank.Services.BloodStock.Core.Interfaces.Repositories;
 using BloodBank.Services.BloodStock.Infrastructure.Persistence;
-using BloodBank.Services.Core.BloodStock.Entities;
-using BloodBank.Services.Core.BloodStock.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BloodBank.Services.Core.BloodStock.Repositories;
@@ -19,6 +20,16 @@ public class DonationRepository : IDonationRepository
         var donations = await _context.Donations
             .Include(x=> x.Donor)
             .Where(x=> !x.IsDeleted)
+            .ToListAsync();
+        return donations;
+    }
+
+    public async Task<List<Donation>> GetAllByBloodType(string bloodType, string rhFactor)
+    {
+        var donations = await _context.Donations
+            .Include(x=> x.Donor)
+            .Where(x=> x.Donor.BloodType.ToString() == bloodType && x.Donor.RhFactor.ToString() == rhFactor && !x.IsDeleted && x.Status == DonationStatus.Approved)
+            .OrderByDescending(x=> x.CreatedAt)
             .ToListAsync();
         return donations;
     }

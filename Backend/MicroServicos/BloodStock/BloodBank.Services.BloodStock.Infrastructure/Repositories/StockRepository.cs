@@ -1,6 +1,6 @@
+using BloodBank.Services.BloodStock.Core.Entities;
+using BloodBank.Services.BloodStock.Core.Interfaces.Repositories;
 using BloodBank.Services.BloodStock.Infrastructure.Persistence;
-using BloodBank.Services.Core.BloodStock.Entities;
-using BloodBank.Services.Core.BloodStock.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BloodBank.Services.Core.BloodStock.Repositories;

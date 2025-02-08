@@ -1,5 +1,6 @@
+using BloodBank.Services.BloodStock.Core.Interfaces;
+using BloodBank.Services.BloodStock.Core.Interfaces.Repositories;
 using BloodBank.Services.BloodStock.Infrastructure.Persistence;
-using BloodBank.Services.Core.BloodStock.Interfaces;
 using BloodBank.Services.Core.BloodStock.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,7 @@ public static class InfrastructureModule
     {
         services
             .AddData(configuration)
+            .AddMessageBus()
             .AddUnitOfWork()
             .AddRepositories();
         return services;
@@ -36,6 +38,12 @@ public static class InfrastructureModule
     private static IServiceCollection AddUnitOfWork(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        return services;
+    }
+    
+    public static IServiceCollection AddMessageBus(this IServiceCollection services)
+    {
+        services.AddScoped<IBusService, RabbitMqClientService>();
         return services;
     }
 }

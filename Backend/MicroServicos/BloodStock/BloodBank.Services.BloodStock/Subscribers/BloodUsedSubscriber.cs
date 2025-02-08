@@ -1,6 +1,6 @@
 using System.Text;
 using System.Text.Json;
-using BloodBank.Services.BloodStock.Application.Commands.StockCommands.InsertBloodStock;
+using BloodBank.Services.BloodStock.Application.Commands.StockCommands.UseBloodStock;
 using BloodBank.Services.BloodStock.Application.Events;
 using BloodBank.Services.BloodStock.Core.Enums;
 using MediatR;
@@ -9,17 +9,16 @@ using RabbitMQ.Client.Events;
 
 namespace BloodBank.Services.Core.BloodStock.Subscribers;
 
-public class BloodApprovedSubscriber : IHostedService
+public class BloodUsedSubscriber : IHostedService
 {
-    private readonly IServiceProvider _serviceProvider;
+     private readonly IServiceProvider _serviceProvider;
     private IModel _channel;
     private IConnection _connection;
+    
+    const string BLOOD_USED_QUEUE = "blood-used";
+    const string ERROR_QUEUE = "blood-used-error";
 
-    const string EXCHANGE = "bloodbank";
-    const string BLOOD_APPROVED_QUEUE = "blood-approved";
-    const string ERROR_QUEUE = "blood-approved-error";
-
-    public BloodApprovedSubscriber(IServiceProvider serviceProvider)
+    public BloodUsedSubscriber(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }
@@ -27,7 +26,7 @@ public class BloodApprovedSubscriber : IHostedService
     public Task StartAsync(CancellationToken cancellationToken)
     {
         var factory = new ConnectionFactory { HostName = "localhost" };
-        _connection = factory.CreateConnection("bloodbank-stock-approved-consumer");
+        _connection = factory.CreateConnection("bloodbank-stock-used-consumer");
         _channel = _connection.CreateModel();
 
         var consumer = new EventingBasicConsumer(_channel);
@@ -41,22 +40,23 @@ public class BloodApprovedSubscriber : IHostedService
 
                 var contentArray = eventArgs.Body.ToArray();
                 var contentString = Encoding.UTF8.GetString(contentArray);
-                var entity = JsonSerializer.Deserialize<BloodApprovedEvent>(contentString);
+                var entity = JsonSerializer.Deserialize<BloodUsedEvent>(contentString);
 
                 Console.WriteLine($"Message received: {contentString}");
 
-                var result =
-                    await mediator.Send(new InsertBloodStockCommand(entity!.BloodType, entity.RhFactor,
-                        entity.QuantityMl));
-
+                var command = new UseBloodCommand(entity!.BloodType, entity.RhFactor, entity.QuantityMl);
+                var result = await mediator.Send(command);
                 if (result.IsSuccess)
                 {
-                    var rhFactor = entity.RhFactor == RhFactorEnum.Positive ? "+" : "-";
-                    Console.WriteLine($"Blood inserted in stock: {entity.BloodType}{rhFactor}: {entity.QuantityMl}Ml");
+                    var rh = entity.RhFactor == RhFactorEnum.Positive ? "+" : "-";
+                    Console.WriteLine($"[{DateTime.Now}] Blood used: {entity.BloodType}{rh} {entity.QuantityMl}ml");
                     _channel.BasicNack(eventArgs.DeliveryTag, false, false);
                 }
                 else
                 {
+                    var rh = entity.RhFactor == RhFactorEnum.Positive ? "+" : "-";
+                    Console.WriteLine($"[{DateTime.Now}] {result.Message}: {entity.BloodType}{rh} {entity.QuantityMl}ml");
+                    
                     // Publica na fila de erro
                     _channel.BasicPublish(
                         exchange: "",
@@ -64,8 +64,10 @@ public class BloodApprovedSubscriber : IHostedService
                         basicProperties: null,
                         body: contentArray
                     );
+                    
                     _channel.BasicNack(eventArgs.DeliveryTag, false, false);
                 }
+                
             }
             catch (Exception ex)
             {
@@ -75,7 +77,7 @@ public class BloodApprovedSubscriber : IHostedService
             }
         };
 
-        _channel.BasicConsume(BLOOD_APPROVED_QUEUE, false, consumer);
+        _channel.BasicConsume(BLOOD_USED_QUEUE, false, consumer);
         return Task.CompletedTask;
     }
 

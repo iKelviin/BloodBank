@@ -1,4 +1,4 @@
-namespace BloodBank.Services.Core.BloodStock.Enums;
+namespace BloodBank.Services.BloodStock.Core.Enums;
 
 public enum GenderEnum
 {

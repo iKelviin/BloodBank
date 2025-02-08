@@ -1,6 +1,6 @@
-using BloodBank.Services.Core.BloodStock.Entities;
+using BloodBank.Services.BloodStock.Core.Entities;
 
-namespace BloodBank.Services.Core.BloodStock.Interfaces;
+namespace BloodBank.Services.BloodStock.Core.Interfaces.Repositories;
 
 public interface IStockRepository
 {

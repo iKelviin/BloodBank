@@ -10,4 +10,9 @@
       <PackageReference Include="MediatR" Version="12.4.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BloodBank.Services.BloodStock.Core\BloodBank.Services.BloodStock.Core.csproj" />
+      <ProjectReference Include="..\BloodBank.Services.BloodStock.Infrastructure\BloodBank.Services.BloodStock.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

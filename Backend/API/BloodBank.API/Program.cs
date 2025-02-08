@@ -1,3 +1,4 @@
+using BloodBank.API.BackgroundService;
 using BloodBank.Application;
 using BloodBank.Infrastructure;
 
@@ -10,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
+
+builder.Services.AddHostedService<BloodUsageSimulatorService>();
 
 builder.Services
     .AddApplication()

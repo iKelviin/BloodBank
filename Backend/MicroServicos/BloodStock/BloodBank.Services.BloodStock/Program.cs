@@ -12,6 +12,7 @@ builder.Services
     .AddInfrastructure(builder.Configuration);
 
 builder.Services.AddHostedService<BloodApprovedSubscriber>();
+builder.Services.AddHostedService<BloodUsedSubscriber>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -1,7 +1,6 @@
-using BloodBank.Services.Core.BloodStock.Entities;
-using BloodBank.Services.Core.BloodStock.Enums;
+using BloodBank.Services.BloodStock.Core.Enums;
 
-namespace BloodBank.Services.Core.BloodStockEntities;
+namespace BloodBank.Services.BloodStock.Core.Entities;
 
 public class Donor : BaseEntity
 {

@@ -18,6 +18,7 @@ public class DonationRepository : IDonationRepository
     {
         var donations = await _context.Donations
             .Include(x=> x.Donor)
+            .Include(x=> x.HealthPost)
             .Where(x=> !x.IsDeleted)
             .ToListAsync();
         return donations;
@@ -27,6 +28,7 @@ public class DonationRepository : IDonationRepository
     {
         var donations = await _context.Donations
             .Include(x=> x.Donor)
+            .Include(x=> x.HealthPost)
             .Where(x=> x.DonorId == donorId && !x.IsDeleted)
             .ToListAsync();
         return donations;
@@ -36,6 +38,7 @@ public class DonationRepository : IDonationRepository
     {
         var donation = await _context.Donations
             .Include(x => x.Donor)
+            .Include(x=> x.HealthPost)
             .Where(x => x.DonorId == donorId && !x.IsDeleted)
             .OrderByDescending(x => x.DonationDate)
             .FirstOrDefaultAsync();
@@ -51,12 +54,13 @@ public class DonationRepository : IDonationRepository
     public async Task<Guid> Add(Donation donation)
     {
         await _context.Donations.AddAsync(donation);
-        //await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         return donation.Id;
     }
 
     public async Task Update(Donation donation)
     {
         _context.Donations.Update(donation);
+        await _context.SaveChangesAsync();
     }
 }

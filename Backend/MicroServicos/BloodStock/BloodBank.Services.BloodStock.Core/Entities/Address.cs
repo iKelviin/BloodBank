@@ -1,6 +1,4 @@
-using BloodBank.Services.Core.BloodStockEntities;
-
-namespace BloodBank.Services.Core.BloodStock.Entities;
+namespace BloodBank.Services.BloodStock.Core.Entities;
 
 public class Address
 {

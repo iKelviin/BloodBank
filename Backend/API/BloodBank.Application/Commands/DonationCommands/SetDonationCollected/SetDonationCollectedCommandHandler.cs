@@ -8,11 +8,11 @@ namespace BloodBank.Application.Commands.DonationCommands.SetDonationCollected;
 
 public class SetDonationCollectedCommandHandler : IRequestHandler<SetDonationCollectedCommand, ResultViewModel>
 {
-    private readonly IUnitOfWork _repository;
+    private readonly IDonationRepository _repository;
     private readonly IBusService _bus;
     private const string ROUTING_KEY = "blood-collected";
 
-    public SetDonationCollectedCommandHandler(IUnitOfWork repository, IBusService bus)
+    public SetDonationCollectedCommandHandler(IDonationRepository repository, IBusService bus)
     {
         _repository = repository;
         _bus = bus;
@@ -22,16 +22,14 @@ public class SetDonationCollectedCommandHandler : IRequestHandler<SetDonationCol
     {
         try
         {
-            var donation = await _repository.Donations.GetById(request.Id);
+            var donation = await _repository.GetById(request.Id);
             if (donation == null) return ResultViewModel.Error("Donation not found");
             if(donation.Status != DonationStatus.Scheduled) return ResultViewModel.Error("Donation is not scheduled");
 
             donation.SetAsCollected();
-            await _repository.Donations.Update(donation);
-            _repository.CompleteAsync();
+            await _repository.Update(donation);
 
             // Publica evento BloodApproved para RabbitMQ
-            //var @event = new BloodCollectedPublishModel(donation.Id,donation.Donor.BloodType.ToString(),donation.Donor.RhFactor == RhFactorEnum.Positive ? "+" : "-",donation.QuantityMl);
             var @event = new BloodCollectedPublishModel(donation.Id);
             _bus.Publish(ROUTING_KEY, @event);
             

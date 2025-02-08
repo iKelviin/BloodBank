@@ -1,4 +1,6 @@
-namespace BloodBank.Services.Core.BloodStock.Interfaces;
+using BloodBank.Services.BloodStock.Core.Interfaces.Repositories;
+
+namespace BloodBank.Services.BloodStock.Core.Interfaces;
 
 public interface IUnitOfWork
 {
