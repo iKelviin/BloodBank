@@ -1,5 +1,6 @@
 using BloodBank.Application.Models;
 using BloodBank.Core.Entities;
+using BloodBank.Core.Enums;
 using BloodBank.Core.Interfaces;
 using MediatR;
 
@@ -25,10 +26,10 @@ public class UpdateDonorCommandHandler : IRequestHandler<UpdateDonorCommand, Res
                 request.FullName,
                 request.Email,
                 request.BirthDay,
-                request.Gender,
+                Enum.Parse<GenderEnum>(request.Gender),
                 request.Weight,
-                request.BloodType,
-                request.RhFactor,
+                Enum.Parse<BloodTypeEnum>(request.BloodType),
+                Enum.Parse<RhFactorEnum>(request.RhFactor),
                 new Address(
                     request.Street,
                     request.City,

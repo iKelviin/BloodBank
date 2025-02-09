@@ -1,12 +1,60 @@
 ﻿@page "/"
+@using Blazored.SessionStorage
+@using BloodBank.Site.Notifications
+@inject ThemeNotification Notification
+@inject ISessionStorageService SessionStorage
 
 <PageTitle>BloodBank</PageTitle>
-
 <div class="text-center">
-    <h3>Sistema de Gerenciamento de Banco de Sangue</h3>
-
-    <p>
-        Acesse o menu de doações para registrar uma nova doação!!
-    </p>
-    <!--img src="fundo.webp" height="600px" alt=""-->
+    @if (Theme == "light")
+    {
+        <img src="fundo-light.png" alt="">
+    }
+    else if(Theme == "dark")
+    {
+        <img src="fundo-dark.png" alt="">
+    }
 </div>
+
+@code {
+    private string Theme { get; set; } = "light";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var sessionTheme = await SessionStorage.GetItemAsync<string>("data-bs-theme");
+            if (sessionTheme is null) Theme = "light";
+            StateHasChanged();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Notification.OnThemeChange += OnThemeChanged;
+        await LoadTheme();
+    }
+
+    private async Task LoadTheme()
+    {
+        Theme = await GetTheme();
+        StateHasChanged();
+    }
+
+    private async void OnThemeChanged()
+    {
+        Theme = await GetTheme();
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        Notification.OnThemeChange -= OnThemeChanged;
+    }
+
+    private async Task<string> GetTheme()
+    {
+        return await SessionStorage.GetItemAsync<string>("data-bs-theme"); 
+    }
+
+}

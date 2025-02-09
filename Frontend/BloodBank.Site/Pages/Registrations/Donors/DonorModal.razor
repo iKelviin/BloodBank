@@ -1,5 +1,271 @@
-<h3>DonorModal</h3>
+@inject IJSRuntime JSRuntime
+@inject IDonorService DonorService
+@inject ICepService CepService
+
+
+<div id="donorModal" role="dialog" class="modal zoomIn" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="display: none;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (donor.Id == Guid.Empty)
+                {
+                    <h5 class="modal-title" id="myModalLabel"> Cadastrar Doador</h5>
+                }
+                else
+                {
+                    <h5 class="modal-title" id="myModalLabel"> Editar Doador</h5>
+                }
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <EditForm Model="@donor" OnValidSubmit="@Submit" class="needs-validation" novalidate>
+                    <DataAnnotationsValidator/>
+                    <div class="row mb-2">
+                        <div class="text-center">
+                            <div class="d-inline-block">
+                                <div class="avatar-title bg-light rounded-circle">
+                                    <img src="@GetAvatarUrl(donor.Gender)"
+                                         class="avatar-xl rounded-circle material-shadow h-auto">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <div>
+                                <label for="name" class="form-label">Nome Completo</label>
+                                <input type="hidden" @bind-value="@donor.Id"/>
+                                <InputText @bind-Value="donor.FullName" type="text" autocomplete="not"
+                                           class="form-control"
+                                           id="name" required/>
+                                <ValidationMessage For="() => donor.FullName"/>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="email" class="form-label">E-mail</label>
+                            <div class="form-icon">
+                                <InputText @bind-Value="donor.Email" type="email" autocomplete="not"
+                                           class="form-control form-control-icon"
+                                           id="email" required placeholder="example@gmail.com"/>
+                                <i class="ri-mail-unread-line"></i>
+                                <ValidationMessage For="() => donor.Email"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <div>
+                                <label for="birth" class="form-label">Data de Nascimento</label>
+                                <InputDate @bind-Value="donor.BirthDay" autocomplete="not"
+                                           class="form-control" id="birth" required/>
+                                <ValidationMessage For="() => donor.Age"/>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <label for="gender" class="form-label">Sexo</label>
+                            <InputSelect class="form-select" id="gender" @bind-Value="donor.Gender">
+                                <option value="0" selected disabled>Selecione</option>
+                                <option value="Male">Masculino</option>
+                                <option value="Female">Feminino</option>
+                            </InputSelect>
+                        </div>
+                        <div class="col-4">
+                            <div>
+                                <label for="peso" class="form-label">Peso</label>
+                                <InputNumber @bind-Value="donor.Weight" type="number" autocomplete="not"
+                                             class="form-control"
+                                             id="peso" required/>
+                                <ValidationMessage For="() => donor.Weight"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3">
+                            <label for="blood" class="form-label">Tipo Sanguíneo</label>
+                            <InputSelect class="form-select" id="blood" @bind-Value="donor.BloodType">
+                                <option value="0" selected disabled>Selecione</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="AB">AB</option>
+                                <option value="O">O</option>
+                            </InputSelect>
+                        </div>
+                        <div class="col-3">
+                            <label for="blood" class="form-label">Fator RH</label>
+                            <InputSelect class="form-select" id="blood" @bind-Value="donor.RhFactor">
+                                <option value="0" selected disabled>Selecione</option>
+                                <option value="Positive">Positivo</option>
+                                <option value="Negative">Negativo</option>
+                            </InputSelect>
+                        </div>
+                        <div class="col-3">
+                            <label for="cep" class="form-label">CEP</label>
+                            <div class="input-group">
+                                <InputText @bind-Value="donor.ZipCode" type="text" autocomplete="not"
+                                           class="@(Loading ? "form-control input-border-right-none" : "form-control")"
+                                           id="cep" @oninput="OnCepChange"/>
+                                @if (Loading)
+                                {
+                                    <span class="input-group-text input-group-text-bg-transparent">
+                                        <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </span>
+                                }
+                            </div>
+                            <ValidationMessage For="() => donor.ZipCode"/>
+                        </div>
+                        <div class="col-3">
+                            <div>
+                                <label for="uf" class="form-label">UF</label>
+                                <InputText @bind-Value="donor.State" type="text" readonly class="form-control"
+                                           id="uf"/>
+                                <ValidationMessage For="() => donor.State"/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+
+                        <div class="col-8">
+                            <label for="endereco" class="form-label">Endereço</label>
+                            <InputText @bind-Value="donor.Street" type="text" autocomplete="not" class="form-control"
+                                       id="endereco"/>
+                            <ValidationMessage For="() => donor.Street"/>
+                        </div>
+                        <div class="col-4">
+                            <div>
+                                <label for="cidade" class="form-label">Cidade</label>
+                                <InputText @bind-Value="donor.City" type="text" readonly class="form-control"
+                                           id="cidade"/>
+                                <ValidationMessage For="() => donor.City"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 @code {
-    
+    [Parameter] public DonorViewModel donor { get; set; }
+    [Parameter] public Action ChangedData { get; set; }
+    [Inject] public Toastify toast { get; set; }
+    private bool Loading { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (donor.Id != Guid.Empty)
+        {
+            await LoadData();
+        }
+    }
+
+    private async Task LoadData()
+    {
+        var result = await DonorService.GetDonorById(donor.Id);
+        if (result.IsSucces)
+        {
+            donor = result.Data!;
+        }
+        else
+        {
+            await toast.ShowError("Erro ao obter detalhes do doador!");
+        }
+
+        Loading = false;
+        StateHasChanged();
+    }
+
+    private async Task CloseModal()
+    {
+        await JSRuntime.InvokeAsync<Object>("CloseModal", "donorModal");
+    }
+
+    private async Task Submit()
+    {
+        if (donor.Id == Guid.Empty)
+        {
+            DonorCreateModel newDonor = new DonorCreateModel(donor.FullName, donor.Email, donor.BirthDay, donor.Gender, donor.Weight, donor.BloodType, donor.RhFactor, donor.Street, donor.City, donor.State, donor.ZipCode);
+            var result = await DonorService.Add(newDonor);
+
+            if (!result.IsSucces)
+            {
+                await toast.ShowError("Erro interno no servidor!");
+            }
+            else
+            {
+                await toast.ShowSucess("Doador inserido com sucesso!");
+                await CloseModal();
+                ChangedData?.Invoke();
+            }
+        }
+        else
+        {
+            DonorUpdateModel updateDonor = new DonorUpdateModel(donor.Id, donor.FullName, donor.Email, donor.BirthDay, donor.Gender, donor.Weight, donor.BloodType, donor.RhFactor, donor.Street, donor.City, donor.State, donor.ZipCode);
+            var result = await DonorService.Update(updateDonor);
+
+            if (!result.IsSucces)
+            {
+                await toast.ShowError("Erro interno no servidor!");
+            }
+            else
+            {
+                await toast.ShowSucess("Doador atualizado com sucesso!");
+                await CloseModal();
+                ChangedData?.Invoke();
+            }
+        }
+    }
+
+    private string GetAvatarUrl(string sex)
+    {
+        if (sex == "Male")
+        {
+            return $"assets/images/users/avatar-boy.png";
+        }
+        else if (sex == "Female")
+        {
+            return $"assets/images/users/avatar-girl.png";
+        }
+        else
+        {
+            return $"assets/images/users/avatar-anonymous.png";
+        }
+    }
+
+    private async Task OnCepChange(ChangeEventArgs e)
+    {
+        if (e.Value.ToString().Length == 8)
+        {
+            Loading = true;
+            donor.State = string.Empty;
+            donor.City = string.Empty;
+            donor.Street = string.Empty;
+            await Task.Delay(2);
+
+            var address = await CepService.SearchByPostalCode(e.Value.ToString()!);
+
+            if (address is null)
+            {
+                Loading = false;
+                return;
+            }
+
+            donor.State = address.UF;
+            donor.City = address.Localidade;
+            donor.Street = address.Logradouro;
+            Loading = false;
+        }
+    }
+
 }

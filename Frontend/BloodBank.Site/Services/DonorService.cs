@@ -13,18 +13,22 @@ public class DonorService : IDonorService
         _repository = donorRepository;
     }
 
-    public async Task<ResultViewModel<List<DonorViewModel>>> GetAllDonors(string? searchWord = null)
+    public async Task<ResultViewModel<ListPagedModel<DonorViewModel>>> GetAllDonors(int currentPage, int pageSize, string? searchWord = null)
     {
         var result = await _repository.GetAllDonors();
-        if(!result.IsSucces) return ResultViewModel<List<DonorViewModel>>.Error(result.Message);
+        if(!result.IsSucces) return ResultViewModel<ListPagedModel<DonorViewModel>>.Error(result.Message);
 
         var donors = result.Data!;
         if (!string.IsNullOrEmpty(searchWord))
         {
             donors = donors.FindAll(x=> x.FullName.ToLower().Contains(searchWord.ToLower()));
         }
+        var totalPages = (int)Math.Ceiling((double)donors.Count / pageSize);
+        var items = donors.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
        
-        return ResultViewModel<List<DonorViewModel>>.Success(donors);
+        ListPagedModel<DonorViewModel> pagedList = new ListPagedModel<DonorViewModel>(items, currentPage, totalPages);
+
+        return ResultViewModel<ListPagedModel<DonorViewModel>>.Success(pagedList);
     }
 
     public async Task<ResultViewModel<DonorViewModel>> GetDonorById(Guid id)

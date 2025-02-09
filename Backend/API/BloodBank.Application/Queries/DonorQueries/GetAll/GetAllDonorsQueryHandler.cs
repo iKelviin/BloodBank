@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BloodBank.Application.Queries.DonorQueries.GetAllDonors;
 
-public class GetAllDonorsQueryHandler : IRequestHandler<GetAllDonorsQuery, ResultViewModel<List<DonorViewModel>>>
+public class GetAllDonorsQueryHandler : IRequestHandler<GetAllDonorsQuery, ResultViewModel<List<DonorDetailsViewModel>>>
 {
     private readonly IDonorRepository _repository;
 
@@ -13,17 +13,17 @@ public class GetAllDonorsQueryHandler : IRequestHandler<GetAllDonorsQuery, Resul
         _repository = repository;
     }
 
-    public async Task<ResultViewModel<List<DonorViewModel>>> Handle(GetAllDonorsQuery request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<List<DonorDetailsViewModel>>> Handle(GetAllDonorsQuery request, CancellationToken cancellationToken)
     {
         try
         {
             var donors = await _repository.GetAll();
-            var model = donors.Select(DonorViewModel.FromEntity).ToList();
-            return ResultViewModel<List<DonorViewModel>>.Success(model);
+            var model = donors.Select(DonorDetailsViewModel.FromEntity).ToList();
+            return ResultViewModel<List<DonorDetailsViewModel>>.Success(model);
         }
         catch (Exception e)
         {
-            return ResultViewModel<List<DonorViewModel>>.Error($"Error occured: {e.Message}");
+            return ResultViewModel<List<DonorDetailsViewModel>>.Error($"Error occured: {e.Message}");
         }
     }
 }

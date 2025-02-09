@@ -1,6 +1,11 @@
 @using System.Security.Claims
+@using Blazored.LocalStorage
+@using Blazored.SessionStorage
+@using BloodBank.Site.Notifications
 @using BloodBank.Site.Shared
 @inject NavigationManager NavigationManager
+@inject ISessionStorageService SessionStorage
+@inject ThemeNotification Notification
 
 <header id="page-topbar">
     <div class="layout-width">
@@ -173,7 +178,7 @@
                 </div>
 
                 <div class="ms-1 header-item d-none d-sm-flex">
-                    <button type="button"
+                    <button type="button" @onclick="() => ThemeChange()"
                             class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle light-dark-mode">
                         <i class='bx bx-moon fs-22'></i>
                     </button>
@@ -225,6 +230,7 @@
 </header>
 
 @code {
+    private string Theme { get; set; } = "light";
     public string Name { get; set; } = "Kelvin Santos";
     public string Email { get; set; } = "kelvinsantosdarocha@gmail.com";
     [Inject] public Toastify toast { get; set; }
@@ -238,15 +244,6 @@
         var g = random.Next(0, 256);
         var b = random.Next(0, 256);
         return $"rgb({r}, {g}, {b})";
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            //await verifyUser();
-            StateHasChanged();
-        }
     }
 
     private async Task verifyUser()
@@ -269,6 +266,13 @@
         //await Auth.Logout();
         NavigationManager.NavigateTo("/login");
         await toast.ShowWarning("Desconectado!");
+    }
+
+    private async Task ThemeChange()
+    {
+        Theme = Theme == "light" ? "dark" : "light";
+        await SessionStorage.SetItemAsync("data-bs-theme", Theme);
+        Notification.NotificationOnChange();
     }
 
 }

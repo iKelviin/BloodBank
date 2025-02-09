@@ -1,6 +1,9 @@
+using Blazored.LocalStorage;
+using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BloodBank.Site;
+using BloodBank.Site.Notifications;
 using BloodBank.Site.Repositories;
 using BloodBank.Site.Repositories.Interfaces;
 using BloodBank.Site.Services;
@@ -19,9 +22,16 @@ builder.Services.AddHttpClient("API", client =>
 builder.Services.AddScoped<IDonorService, DonorService>();
 builder.Services.AddScoped<IDonorRepository, DonorRepository>();
 
+builder.Services.AddSingleton<ICepService, CepService>();
+
 
 // Shared JS Components
 builder.Services.AddScoped<Toastify>();
 builder.Services.AddScoped<SweetAlert>();
+builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddBlazoredSessionStorage();
+builder.Services.AddScoped<ThemeNotification>();
+
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 await builder.Build().RunAsync();

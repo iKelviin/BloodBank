@@ -1,0 +1,44 @@
+@typeparam T
+
+@if (Paged != null)
+{
+    <div class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start">
+        <div class="col-sm">
+            <div class="text-muted">
+                Mostrando página <span class="fw-semibold">@Paged.CurrentPage</span> de <span class="fw-semibold">@Paged.TotalPages</span>.
+            </div>
+        </div>
+        <div class="col-sm-auto  mt-3 mt-sm-0">
+            <ul class="pagination pagination-separated pagination-sm mb-0 justify-content-center">
+                <li class="page-item @(Paged.CurrentPage == 1 ? "disabled" : "")">
+                    <button @onclick="()=> NavigateToPage(Paged.CurrentPage - 1)" class="page-link">←</button>
+                </li>
+                @for (int i = 1; i <= Paged.TotalPages; i++)
+                {
+                    var j = i;
+                    <li class="page-item @(Paged.CurrentPage == j ? "active" : "")">
+                        <button @onclick="()=> NavigateToPage(j)" class="page-link">@j</button>
+                    </li>
+                }
+                <li class="page-item @(Paged.CurrentPage == Paged.TotalPages ? "disabled" : "")">
+                    <button @onclick="()=> NavigateToPage(Paged.CurrentPage + 1)" class="page-link">→</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+}
+
+@code {
+    [Parameter] public ListPagedModel<T> Paged { get; set; }
+    [Parameter] public EventCallback<int> ChangePage { get; set; }
+
+
+
+    private async Task NavigateToPage(int pagina)
+    {
+        if (pagina < 1 || pagina > Paged.TotalPages) return;
+
+        await ChangePage.InvokeAsync(pagina);
+    }
+}
