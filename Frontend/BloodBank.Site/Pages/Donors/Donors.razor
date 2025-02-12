@@ -1,4 +1,4 @@
-@page "/registration/donors"
+@page "/donors"
 @using BloodBank.Site.Components
 
 @inject IDonorService DonorService
@@ -105,7 +105,7 @@
                             </td>
                             <td class="">
                                 <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
-                                        data-bs-target="#donorModal" @onclick="() => EditDonor(donor)"><i
+                                        data-bs-target="#donorModal" @onclick="() => EditDonor(donor.Id)"><i
                                         class="ri-pencil-fill"></i> Editar
                                 </button>
                                 <button type="button" class="btn btn-sm btn-danger me-1"
@@ -124,7 +124,7 @@
 <DonorModal donor="Donor" ChangedData="ChangedData"></DonorModal>
 
 @code {
-    private DonorViewModel? Donor { get; set; } = new DonorViewModel();
+    private DonorDetailsViewModel? Donor { get; set; } = new DonorDetailsViewModel();
     private ListPagedModel<DonorViewModel>? donors;
     [Inject] public SweetAlert sweetAlert { get; set; }
     [Inject] public Toastify toast { get; set; }
@@ -165,7 +165,7 @@
 
     private void InitializeDonor()
     {
-        Donor = new DonorViewModel();
+        Donor = new DonorDetailsViewModel();
     }
 
     private async Task Search()
@@ -174,9 +174,17 @@
         await LoadData();
     }
 
-    private void EditDonor(DonorViewModel donor)
+    private async Task EditDonor(Guid id)
     {
-        Donor = donor;
+        var result = await DonorService.GetDonorById(id);
+        if (!result.IsSucces)
+        {
+            await toast.ShowError("Erro ao obter dados do doador!");
+        }
+        else
+        {
+            Donor = result.Data;
+        }
     }
 
     private async Task DeleteDonor(Guid id)

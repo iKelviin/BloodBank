@@ -34,7 +34,7 @@ public class DonorRepository : IDonorRepository
         }
     }
 
-    public async Task<ResultViewModel<DonorViewModel>> GetDonorById(Guid id)
+    public async Task<ResultViewModel<DonorDetailsViewModel>> GetDonorById(Guid id)
     {
         try
         {
@@ -42,15 +42,15 @@ public class DonorRepository : IDonorRepository
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                return ResultViewModel<DonorViewModel>.Error(error);
+                return ResultViewModel<DonorDetailsViewModel>.Error(error);
             }
 
-            var donor = await response.Content.ReadFromJsonAsync<DonorViewModel>();
-            return ResultViewModel<DonorViewModel>.Success(donor!);
+            var donor = await response.Content.ReadFromJsonAsync<DonorDetailsViewModel>();
+            return ResultViewModel<DonorDetailsViewModel>.Success(donor!);
         }
         catch (Exception e)
         {
-            return ResultViewModel<DonorViewModel>.Error(e.Message);
+            return ResultViewModel<DonorDetailsViewModel>.Error(e.Message);
         }
     }
 

@@ -157,7 +157,7 @@
 </div>
 
 @code {
-    [Parameter] public DonorViewModel donor { get; set; }
+    [Parameter] public DonorDetailsViewModel donor { get; set; }
     [Parameter] public Action ChangedData { get; set; }
     [Inject] public Toastify toast { get; set; }
     private bool Loading { get; set; } = false;

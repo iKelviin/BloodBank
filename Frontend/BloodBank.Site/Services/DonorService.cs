@@ -31,7 +31,7 @@ public class DonorService : IDonorService
         return ResultViewModel<ListPagedModel<DonorViewModel>>.Success(pagedList);
     }
 
-    public async Task<ResultViewModel<DonorViewModel>> GetDonorById(Guid id)
+    public async Task<ResultViewModel<DonorDetailsViewModel>> GetDonorById(Guid id)
     {
         return await _repository.GetDonorById(id);
     }

@@ -40,6 +40,7 @@ public class DonorDetailsViewModel
     public string City { get; private set; }
     public string State { get; private set; }
     public string ZipCode { get; private set; }
+    public string LastDonation { get; set; }
 
     public static DonorDetailsViewModel FromEntity(Donor donor)
     {

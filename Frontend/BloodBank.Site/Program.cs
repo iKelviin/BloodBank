@@ -21,6 +21,8 @@ builder.Services.AddHttpClient("API", client =>
 
 builder.Services.AddScoped<IDonorService, DonorService>();
 builder.Services.AddScoped<IDonorRepository, DonorRepository>();
+builder.Services.AddScoped<IHealthPostService, HealthPostService>();
+builder.Services.AddScoped<IHealthPostRepository, HealthPostRepository>();
 
 builder.Services.AddSingleton<ICepService, CepService>();
 

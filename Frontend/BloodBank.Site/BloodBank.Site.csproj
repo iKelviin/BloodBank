@@ -24,4 +24,9 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Pages\Donors\DonorModal.razor" />
+      <AdditionalFiles Include="Pages\Donors\Donors.razor" />
+    </ItemGroup>
+
 </Project>
