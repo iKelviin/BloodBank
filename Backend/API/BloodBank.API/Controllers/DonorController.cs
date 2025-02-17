@@ -4,12 +4,14 @@ using BloodBank.Application.Commands.DonorCommands.UpdateDonor;
 using BloodBank.Application.Queries.DonorQueries.GetAllDonors;
 using BloodBank.Application.Queries.DonorQueries.GetById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodBank.API.Controllers;
 
 [ApiController]
 [Route("api/donors")]
+[Authorize]
 public class DonorController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -36,6 +38,7 @@ public class DonorController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> Post(InsertDonorCommand command)
     {
         var result = await _mediator.Send(command);
@@ -57,5 +60,16 @@ public class DonorController : ControllerBase
         var result = await _mediator.Send(new DeleteDonorCommand(id));
         if(!result.IsSuccess) return BadRequest(result.Message);
         return NoContent();
+    }
+    
+    [HttpPut("login")]
+    [AllowAnonymous]
+    public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
+    {
+        var result = await mediator.Send(command);
+        
+        if(!result.IsSuccess) return BadRequest(result.Message);
+        
+        return Ok(result.Data);
     }
 }

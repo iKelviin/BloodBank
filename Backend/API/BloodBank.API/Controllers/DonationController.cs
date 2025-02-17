@@ -3,12 +3,14 @@ using BloodBank.Application.Commands.DonationCommands.SetDonationCollected;
 using BloodBank.Application.Queries.DonationQueries.GetAll;
 using BloodBank.Application.Queries.DonationQueries.GetByDonorId;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodBank.API.Controllers;
 
 [ApiController]
 [Route("api/donations")]
+[Authorize]
 public class DonationController : ControllerBase
 {
     private readonly IMediator _mediator;

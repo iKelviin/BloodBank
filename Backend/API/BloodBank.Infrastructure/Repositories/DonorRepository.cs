@@ -44,4 +44,9 @@ public class DonorRepository : IDonorRepository
         _context.Donors.Update(donor);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<Donor?> GetDonorByEmailAndPassword(string email, string password)
+    {
+        return await _context.Donors.SingleOrDefaultAsync(x => x.Email == email && x.Password == password);
+    }
 }

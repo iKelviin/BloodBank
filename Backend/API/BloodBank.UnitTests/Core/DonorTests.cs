@@ -10,7 +10,7 @@ public class DonorTests
     {
         //Arrange
         var donor = new Donor("Doador Teste", "doador@mail.com", DateTime.Now.AddYears(-18), GenderEnum.Male, 70, BloodTypeEnum.A,
-            RhFactorEnum.Positive, new Address("Rua teste", "Cidade teste", "SP", "06735-075"));
+            RhFactorEnum.Positive, new Address("Rua teste", "Cidade teste", "SP", "06735-075"),"password","role");
 
         //Act
         var result = donor.CanDonate();
@@ -24,7 +24,7 @@ public class DonorTests
     {
         //Arrange
         var donor = new Donor("Doador Teste", "doador@mail.com", DateTime.Now.AddYears(-15), GenderEnum.Male, 49, BloodTypeEnum.A,
-            RhFactorEnum.Positive, new Address("Rua teste", "Cidade teste", "SP", "06735-075"));
+            RhFactorEnum.Positive, new Address("Rua teste", "Cidade teste", "SP", "06735-075"),"password","role");
 
         //Act
         var result = donor.CanDonate();

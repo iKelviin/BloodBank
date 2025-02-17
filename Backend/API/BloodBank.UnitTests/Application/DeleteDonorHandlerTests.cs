@@ -22,7 +22,7 @@ public class DeleteDonorHandlerTests
     {
         // Arrange
         var donorId = Guid.NewGuid();
-        var donor = new Donor("John Doe", "john@example.com", new DateTime(1990, 1, 1), GenderEnum.Male, 70, BloodTypeEnum.A, RhFactorEnum.Positive, new Address("Street","City","State","12345-678"));
+        var donor = new Donor("John Doe", "john@example.com", new DateTime(1990, 1, 1), GenderEnum.Male, 70, BloodTypeEnum.A, RhFactorEnum.Positive, new Address("Street","City","State","12345-678"),"password","role");
         var command = new DeleteDonorCommand(donorId);
 
         _repository.GetById(donorId).Returns(donor);

@@ -1,11 +1,13 @@
 using BloodBank.Application.Queries.HealthPostQueries.GetAll;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodBank.API.Controllers;
 
 [ApiController]
 [Route("api/healthposts")]
+[Authorize]
 public class HealthPostController : ControllerBase
 {
     private readonly IMediator _mediator;

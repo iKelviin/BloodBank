@@ -9,7 +9,7 @@ public class Donor : BaseEntity
     }
 
     public Donor(string fullName, string email, DateTime birthDay, GenderEnum gender, double weight,
-        BloodTypeEnum bloodType, RhFactorEnum rhFactor, Address address) : base()
+        BloodTypeEnum bloodType, RhFactorEnum rhFactor, Address address, string password, string role) : base()
     {
         FullName = fullName;
         Email = email;
@@ -19,8 +19,12 @@ public class Donor : BaseEntity
         BloodType = bloodType;
         RhFactor = rhFactor;
         Address = address;
+        Password = password;
+        Role = role;
     }
 
+    public string Password { get; private set; }
+    public string Role { get; private set; }
     public string FullName { get; private set; }
     public string Email { get; private set; }
     public DateTime BirthDay { get; private set; }

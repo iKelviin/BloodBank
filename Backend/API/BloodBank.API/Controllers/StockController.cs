@@ -1,5 +1,6 @@
 using BloodBank.Application.Queries.StockQueries.GetAll;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodBank.API.Controllers;
@@ -7,6 +8,7 @@ namespace BloodBank.API.Controllers;
 
 [ApiController]
 [Route("api/stocks")]
+[Authorize]
 public class StockController : ControllerBase
 {
     private readonly IMediator _mediator;

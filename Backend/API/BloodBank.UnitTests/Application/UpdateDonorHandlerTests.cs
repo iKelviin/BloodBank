@@ -23,7 +23,7 @@ public class UpdateDonorHandlerTests
         // Arrange
         var donorId = Guid.NewGuid();
         var donor = new Donor("John Doe", "john@example.com", new DateTime(1990, 1, 1), GenderEnum.Male, 70, BloodTypeEnum.A,
-            RhFactorEnum.Positive, new Address("Street", "City", "State", "12345-678"));
+            RhFactorEnum.Positive, new Address("Street", "City", "State", "12345-678"),"password","role");
         var command = new UpdateDonorCommand(
             donorId, "Jane Doe", "jane@example.com", new DateTime(1995, 1, 1), GenderEnum.Female.ToString(), 65, BloodTypeEnum.A.ToString(),RhFactorEnum.Positive.ToString(), "New Street", "New City", "New State", "54321-876");
 

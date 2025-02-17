@@ -25,7 +25,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 
-builder.Services.AddHostedService<BloodUsageSimulatorService>();
+//builder.Services.AddHostedService<BloodUsageSimulatorService>();
 
 builder.Services
     .AddApplication()

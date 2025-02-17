@@ -9,4 +9,5 @@ public interface IDonorRepository
     Task<bool> Exists(string email);
     Task<Guid> Add(Donor donor);
     Task Update(Donor donor);
+    Task<Donor?> GetDonorByEmailAndPassword(string email, string password);
 }

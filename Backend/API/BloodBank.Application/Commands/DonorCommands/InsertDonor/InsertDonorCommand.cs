@@ -35,6 +35,7 @@ public class InsertDonorCommand : IRequest<ResultViewModel<Guid>>
     public string City { get; set; }
     public string State { get; set; }
     public string ZipCode { get; set; }
+    public string Password { get; set; }
 
     public Donor ToEntity() => new(
         FullName,
@@ -49,6 +50,8 @@ public class InsertDonorCommand : IRequest<ResultViewModel<Guid>>
             City,
             State,
             ZipCode
-        )
+        ),
+        Password,
+        "donor"
     );
 }

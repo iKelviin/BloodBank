@@ -56,7 +56,7 @@ public class InsertDonationHandlerTests
         // Arrange
         var donorId = Guid.NewGuid();
         var donor = new Donor("Lucas Silva", "lucas@mail.com", new DateTime(2020, 6, 3), GenderEnum.Male, 40, BloodTypeEnum.A,
-            RhFactorEnum.Positive, new Address("Street", "City", "State", "12345-678"));
+            RhFactorEnum.Positive, new Address("Street", "City", "State", "12345-678"),"password","role");
 
         var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now, 420);
         _donorRepository.GetById(donorId).Returns(donor);
@@ -76,7 +76,7 @@ public class InsertDonationHandlerTests
         // Arrange
         var donorId = Guid.NewGuid();
         var donor = new Donor("Lucas Silva", "lucas@mail.com", new DateTime(2000, 6, 3), GenderEnum.Male, 70,BloodTypeEnum.A,
-            RhFactorEnum.Positive, new Address("Street", "City", "State", "12345-678"));
+            RhFactorEnum.Positive, new Address("Street", "City", "State", "12345-678"),"password","role");
         
         var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now, 450);
         _donorRepository.GetById(donorId).Returns(donor);
@@ -95,7 +95,7 @@ public class InsertDonationHandlerTests
         // Arrange
         var donorId = Guid.NewGuid();
         var donor = new Donor("Lucas Silva", "lucas@mail.com", new DateTime(2000, 6, 3), GenderEnum.Male, 70, BloodTypeEnum.A,
-            RhFactorEnum.Positive, new Address("Street", "City", "State", "12345-678"));
+            RhFactorEnum.Positive, new Address("Street", "City", "State", "12345-678"),"password","role");
 
         var lastDonation = new Donation(donorId,Guid.NewGuid(), DateTime.Now.AddDays(-50), 450);
         var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now, 450);
@@ -117,7 +117,7 @@ public class InsertDonationHandlerTests
         // Arrange
         var donorId = Guid.NewGuid();
         var donor = new Donor("Lucia Silva", "lucia@mail.com", new DateTime(2000, 6, 3), GenderEnum.Female, 70, BloodTypeEnum.B,
-            RhFactorEnum.Negative, new Address("Street", "City", "State", "12345-678"));
+            RhFactorEnum.Negative, new Address("Street", "City", "State", "12345-678"),"password","role");
 
         var lastDonation = new Donation(donorId,Guid.NewGuid(), DateTime.Now.AddDays(-80), 450);
         var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now, 450);
@@ -139,7 +139,7 @@ public class InsertDonationHandlerTests
         // Arrange
         var donorId = Guid.NewGuid();
         var donor = new Donor("Lucas Silva", "lucas@mail.com", new DateTime(2000, 6, 3), GenderEnum.Male, 70, BloodTypeEnum.A,
-            RhFactorEnum.Positive, new Address("Street", "City", "State", "12345-678"));
+            RhFactorEnum.Positive, new Address("Street", "City", "State", "12345-678"),"password","role");
         
         var command = new InsertDonationCommand(donorId,Guid.NewGuid(), DateTime.Now, 450);
         
