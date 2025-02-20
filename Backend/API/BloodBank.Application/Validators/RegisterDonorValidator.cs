@@ -1,12 +1,13 @@
+using BloodBank.Application.Commands.AuthCommands.RegisterCommand;
 using BloodBank.Application.Commands.DonorCommands.InsertDonor;
 using BloodBank.Core.Enums;
 using FluentValidation;
 
 namespace BloodBank.Application.Validators;
 
-public class InsertDonorValidator : AbstractValidator<InsertDonorCommand>
+public class RegisterDonorValidator : AbstractValidator<RegisterDonorCommand>
 {
-    public InsertDonorValidator()
+    public RegisterDonorValidator()
     {
         RuleFor(d => d.FullName)
             .NotEmpty()

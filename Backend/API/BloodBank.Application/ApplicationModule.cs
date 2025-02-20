@@ -29,7 +29,7 @@ public static class ApplicationModule
     {
         services
             .AddFluentValidationAutoValidation()
-            .AddValidatorsFromAssemblyContaining<InsertDonorValidator>();
+            .AddValidatorsFromAssemblyContaining<RegisterDonorValidator>();
         return services;
     }
 }

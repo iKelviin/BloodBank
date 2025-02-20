@@ -22,7 +22,7 @@ public class BloodUsageSimulatorService : IHostedService
     }
     public Task StartAsync(CancellationToken cancellationToken)
     { 
-        _timer = new Timer(SimulateBloodUsage, null, TimeSpan.Zero, TimeSpan.FromMinutes(2));
+        //_timer = new Timer(SimulateBloodUsage, null, TimeSpan.Zero, TimeSpan.FromMinutes(2));
         return Task.CompletedTask;
     }
 
@@ -32,13 +32,12 @@ public class BloodUsageSimulatorService : IHostedService
         {
             using (var scope = _serviceProvider.CreateScope())
             {
-                var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
                 var bus = scope.ServiceProvider.GetRequiredService<IBusService>();
 
                 // Escolhe um tipo de sangue e fator Rh aleatório
-                var bloodType = (BloodTypeEnum)_random.Next(0, 4); // 0 a 3 (A, B, AB, O)
-                var rhFactor = (RhFactorEnum)_random.Next(0, 2); // 0 a 1 (Negative, Positive)
-                var quantityMl = _random.Next(400, 470); // Quantidade aleatória entre 420ml e 470ml
+                var bloodType = (BloodTypeEnum)_random.Next(0, 4);
+                var rhFactor = (RhFactorEnum)_random.Next(0, 2); 
+                var quantityMl = _random.Next(400, 470); 
                 
                 // Publica mensagem para fila de Sangue usado que será consumido pelo serviço de BloodStock.
                 var @event = new BloodUsedEvent

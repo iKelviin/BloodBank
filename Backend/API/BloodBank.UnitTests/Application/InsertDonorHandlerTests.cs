@@ -2,6 +2,7 @@ using BloodBank.Application.Commands.DonorCommands.InsertDonor;
 using BloodBank.Application.Validators;
 using BloodBank.Core.Entities;
 using BloodBank.Core.Interfaces;
+using BloodBank.Infrastructure.Security;
 using FluentValidation.TestHelper;
 using NSubstitute;
 
@@ -11,13 +12,15 @@ public class InsertDonorHandlerTests
 {
     private readonly IDonorRepository _repository;
     private readonly InsertDonorCommandHandler _handler;
-    private readonly InsertDonorValidator _validator;
+    private readonly IAuthService _authService;
+    private readonly RegisterDonorValidator _validator;
 
     public InsertDonorHandlerTests()
     {
         _repository = Substitute.For<IDonorRepository>();
-        _handler = new InsertDonorCommandHandler(_repository);
-        _validator = new InsertDonorValidator();
+        _authService = Substitute.For<IAuthService>();
+        _handler = new InsertDonorCommandHandler(_repository,_authService);
+        _validator = new RegisterDonorValidator();
     }
 
     [Fact]

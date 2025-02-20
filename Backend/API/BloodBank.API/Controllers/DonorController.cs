@@ -1,3 +1,5 @@
+using BloodBank.Application.Commands.AuthCommands.LoginCommand;
+using BloodBank.Application.Commands.AuthCommands.RegisterCommand;
 using BloodBank.Application.Commands.DonorCommands.DeleteDonor;
 using BloodBank.Application.Commands.DonorCommands.InsertDonor;
 using BloodBank.Application.Commands.DonorCommands.UpdateDonor;
@@ -38,7 +40,7 @@ public class DonorController : ControllerBase
     }
 
     [HttpPost]
-    [AllowAnonymous]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> Post(InsertDonorCommand command)
     {
         var result = await _mediator.Send(command);
@@ -47,6 +49,7 @@ public class DonorController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> Put(Guid id, UpdateDonorCommand command)
     {
         var result = await _mediator.Send(command);
@@ -55,6 +58,7 @@ public class DonorController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await _mediator.Send(new DeleteDonorCommand(id));
@@ -62,14 +66,4 @@ public class DonorController : ControllerBase
         return NoContent();
     }
     
-    [HttpPut("login")]
-    [AllowAnonymous]
-    public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
-    {
-        var result = await mediator.Send(command);
-        
-        if(!result.IsSuccess) return BadRequest(result.Message);
-        
-        return Ok(result.Data);
-    }
 }
